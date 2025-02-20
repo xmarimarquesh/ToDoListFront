@@ -2,9 +2,47 @@
 import { useState } from "react";
 import Card from "@/components/card";
 import Image from "next/image";
-import { Modal } from "@/components/modal";
+
+interface tarefa{
+  title: string;
+  description: string;
+  date: Date;
+  status: string;
+}
 
 export default function Home() {
+  const [tarefas, setTarefas] = useState<tarefa[]>([
+    {
+      title: "Comprar mantimentos",
+      description: "Ir ao mercado comprar alimentos para a semana.",
+      date: new Date("2025-02-22T10:00:00"),
+      status: "em andamento",
+    },
+    {
+      title: "Estudar para a prova",
+      description: "Revisar o material de estudo para a prova de matemática.",
+      date: new Date("2025-02-23T14:00:00"),
+      status: "pendente",
+    },
+    {
+      title: "Finalizar projeto",
+      description: "Terminar o projeto de desenvolvimento de software.",
+      date: new Date("2025-02-24T17:00:00"),
+      status: "finalizado",
+    },
+    {
+      title: "Limpar a casa",
+      description: "Fazer uma faxina na casa inteira.",
+      date: new Date("2025-02-21T09:00:00"),
+      status: "em andamento",
+    },
+    {
+      title: "Pagar contas",
+      description: "Pagar as contas de luz, internet e telefone.",
+      date: new Date("2025-02-20T18:00:00"),
+      status: "finalizado",
+    },
+  ]);
 
   const [modal, setModal] = useState(false);
 
@@ -27,9 +65,9 @@ export default function Home() {
           <a className="cursor-pointer text-white bg-pink-700 font-semibold p-2 rounded-md shadow-md" onClick={openModal}>New task</a>
         </div>
         <div className="bg-zinc-100 w-[100%] h-screen rounded-md p-10 flex flex-col gap-4">
-          <Card title="Atividade Inglês" data="FEB, 22" status="em andamento" description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown." />
-          <Card title="Profile hackatoon" data="FEB, 14" status="finalizado" description="It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the." />
-          <Card title="Lavar a louça" data="FEB, 09" status="para fazer" description="Release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
+          {tarefas.map((tarefa, index) => (
+            <Card key={index} title={tarefa.title} data={tarefa.date} status={tarefa.status} description={tarefa.description} />
+          ))}
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
