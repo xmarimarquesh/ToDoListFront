@@ -59,13 +59,18 @@ const Card = ({ title, description, data, status }: CardData) => {
           </div>
           <div className="flex flex-col items-end - gap-3">
             <p>
-                {new Intl.DateTimeFormat("en-US", {
+                {(data instanceof Date && !isNaN(data.getTime())) ? (
+                  // data é uma data válida, podemos formatá-la
+                  new Intl.DateTimeFormat("en-US", {
                     month: "short", 
                     day: "2-digit", 
                     hour: "2-digit",
                     minute: "2-digit", 
                     hour12: false,
-                }).format(data)}
+                  }).format(data)
+                ) : (
+                  "Invalid Date"
+              )}
             </p>
 
             <div
